@@ -1,0 +1,43 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+- Always use **strict TypeScript**. Never write plain JavaScript or use implicit types.
+- Follow **Clean Code principles**: clear naming, small functions, single responsibility.
+- Code must be **readable and maintainable** by another developer without verbal explanation.
+- Use **English** for all variable and function names, unless domain-specific naming is required.
+- Use only **types** (not interfaces) with the format TYourTypeName.
+- Use **enums** with the format EYourEnumName.
+- Use **Zod** for schema validation (both front and back).
+- All types, enums, and schemas must be stored in a models/ folder:
+- models/types/ for types
+- models/enums/ for enums
+- models/schemas/ for Zod schemas
+- models/index.ts to centralize and re-export everything
+example : 
+```typescript
+// models/types/user.ts
+export type TUser = { id: string; name: string }
+
+// models/enums/role.ts
+export enum EUserRole { ADMIN = 'admin', USER = 'user' }
+
+// models/schemas/user.ts
+import { z } from 'zod'
+export const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+})
+
+// models/index.ts
+export * from './types/user'
+export * from './enums/role'
+export * from './schemas/user'
+```
+- Avoid comments unless absolutely necessary.
+- When essential, comments must be in English and used only to clarify **non-obvious** logic.
+- Prefer clear naming and structure over comments.
+- Always follow the **Prettier** and **ESLint** configuration defined in the project (do not override it).
+- Prefer stable, well-maintained, and up-to-date dependencies.

@@ -1,0 +1,26 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+**🧪 Backend Rules**
+
+- Follow a modular and feature-oriented folder structure.
+- Use **Zod** for all input validation (DTO-like behavior).
+- Separate all types, enums, and schemas inside the same models/ structure as in frontend.
+- Backend project structure should be:
+src/
+├── controllers/
+├── routes/
+├── services/
+├── middlewares/
+├── repositories/
+├── utils/
+├── config/
+├── models/
+│   ├── types/
+│   ├── enums/
+│   ├── schemas/
+│   └── index.ts
+└── server.ts 
