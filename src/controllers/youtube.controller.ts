@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { youtubeService } from '../services/youtube.service'
-import { whisperService } from '../services/whisper.service'
+import { youtubeService } from '@/services/media/youtube.service'
+import { whisperService } from '@/services/ai/whisper.service'
 import { EUseWhisper, TDownloadRequest, TTranscribeRequest } from '@/models'
 
 async function download(
