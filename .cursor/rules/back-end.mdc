@@ -17,7 +17,6 @@ src/
 ├── middlewares/
 ├── repositories/
 ├── utils/
-├── config/
 ├── models/
 │   ├── types/
 │   ├── enums/
