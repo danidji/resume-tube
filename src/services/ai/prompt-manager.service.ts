@@ -3,7 +3,7 @@ import { ProviderFactory, EProviderType } from './providers/provider.factory'
 
 export class PromptManagerService {
   static async send(
-    prompt: TPromptMessage,
+    prompt: TPromptMessage[],
     providerType: EProviderType,
     model?: EOpenAIModel | EDeepSeekModel
   ): Promise<string> {

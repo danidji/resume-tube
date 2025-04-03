@@ -22,19 +22,18 @@ export class DeepSeekService {
   }
 
   async chatCompletion(
-    prompt: TPromptMessage,
-    model: EDeepSeekModel = EDeepSeekModel.Chat,
+    prompt: TPromptMessage[],
+    model: EDeepSeekModel = EDeepSeekModel.CHAT,
     config?: Partial<TCompletionConfig>
   ): Promise<string> {
     const completion = await this.client.chat.completions.create({
       model,
-      messages: [prompt],
+      messages: [...prompt],
       temperature: config?.temperature ?? this.defaultConfig.temperature,
       max_completion_tokens: config?.maxTokens ?? this.defaultConfig.maxTokens,
       frequency_penalty: config?.frequencyPenalty ?? this.defaultConfig.frequencyPenalty,
       presence_penalty: config?.presencePenalty ?? this.defaultConfig.presencePenalty,
     })
-
     return completion.choices[0]?.message?.content || ''
   }
 }

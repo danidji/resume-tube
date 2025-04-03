@@ -9,7 +9,7 @@ export class OpenAIPromptProvider implements IPromptProvider {
     private readonly config?: Partial<TCompletionConfig>
   ) {}
 
-  async send(prompt: TPromptMessage): Promise<string> {
+  async send(prompt: TPromptMessage[]): Promise<string> {
     return this.openAIService.chatCompletion(prompt, this.model, this.config)
   }
 }

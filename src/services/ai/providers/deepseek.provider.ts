@@ -5,11 +5,11 @@ import { EDeepSeekModel, TCompletionConfig, TPromptMessage } from '@/models'
 export class DeepSeekPromptProvider implements IPromptProvider {
   constructor(
     private readonly deepseekService: DeepSeekService,
-    private readonly model: EDeepSeekModel = EDeepSeekModel.Chat,
+    private readonly model: EDeepSeekModel = EDeepSeekModel.CHAT,
     private readonly config?: Partial<TCompletionConfig>
   ) {}
 
-  async send(prompt: TPromptMessage): Promise<string> {
+  async send(prompt: TPromptMessage[]): Promise<string> {
     return this.deepseekService.chatCompletion(prompt, this.model, this.config)
   }
 }

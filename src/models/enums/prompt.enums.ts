@@ -4,8 +4,8 @@ export enum EPromptProviderType {
 }
 
 export enum EDeepSeekModel {
-  Chat = 'deepseek-chat',
-  Reasoner = 'deepseek-reasoner',
+  CHAT = 'deepseek-chat',
+  REASONER = 'deepseek-reasoner',
 }
 
 export enum EOpenAIModel {

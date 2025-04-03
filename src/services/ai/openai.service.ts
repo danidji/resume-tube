@@ -23,13 +23,13 @@ export class OpenAIService {
   }
 
   async chatCompletion(
-    prompt: TPromptMessage,
+    prompt: TPromptMessage[],
     model: EOpenAIModel = EOpenAIModel.GPT35,
     config?: Partial<TCompletionConfig>
   ): Promise<string> {
     const completion = await this.client.chat.completions.create({
       model,
-      messages: [prompt],
+      messages: [...prompt],
       temperature: config?.temperature ?? this.defaultConfig.temperature,
       max_completion_tokens: config?.maxTokens ?? this.defaultConfig.maxTokens,
       frequency_penalty: config?.frequencyPenalty ?? this.defaultConfig.frequencyPenalty,
