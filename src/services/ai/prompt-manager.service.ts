@@ -1,10 +1,13 @@
-import { IPromptProvider } from '@/models/interfaces/prompt.interfaces'
-import { TPromptMessage } from '@/models'
+import { TPromptMessage, EOpenAIModel, EDeepSeekModel } from '@/models'
+import { ProviderFactory, EProviderType } from './providers/provider.factory'
 
 export class PromptManagerService {
-  constructor(private readonly provider: IPromptProvider) {}
-
-  async send(prompt: TPromptMessage): Promise<string> {
-    return this.provider.send(prompt)
+  static async send(
+    prompt: TPromptMessage,
+    providerType: EProviderType,
+    model?: EOpenAIModel | EDeepSeekModel
+  ): Promise<string> {
+    const provider = ProviderFactory.createProvider(providerType, model)
+    return provider.send(prompt)
   }
 }
