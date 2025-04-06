@@ -30,7 +30,7 @@ export class DeepSeekService {
       model,
       messages: [...prompt],
       temperature: config?.temperature ?? this.defaultConfig.temperature,
-      max_completion_tokens: config?.maxTokens ?? this.defaultConfig.maxTokens,
+      max_tokens: config?.maxTokens ?? this.defaultConfig.maxTokens,
       frequency_penalty: config?.frequencyPenalty ?? this.defaultConfig.frequencyPenalty,
       presence_penalty: config?.presencePenalty ?? this.defaultConfig.presencePenalty,
     })

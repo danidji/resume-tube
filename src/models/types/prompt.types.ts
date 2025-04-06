@@ -22,3 +22,5 @@ export type TCompletionConfig = {
   frequencyPenalty?: number
   presencePenalty?: number
 }
+
+export type TModelAI = EOpenAIModel | EDeepSeekModel

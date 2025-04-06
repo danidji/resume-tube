@@ -10,8 +10,8 @@ export enum EDeepSeekModel {
 
 export enum EOpenAIModel {
   GPT35 = 'gpt-3.5-turbo',
-  GPT4 = 'gpt-4',
-  GPT4Turbo = 'gpt-4-turbo-preview',
+  GPT4o = 'gpt-4o',
+  GPT4oMini = 'gpt-4o-mini',
 }
 
 export enum ECompletionRole {
