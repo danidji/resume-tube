@@ -1,4 +1,4 @@
-import { EOpenAIModel, EDeepSeekModel } from '../enums/prompt.enums'
+import { EOpenAIModel, EDeepSeekModel, EDetailLevel, EExpertiseLevel } from '../enums/prompt.enums'
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions'
 
 export type TPromptManager = {
@@ -24,3 +24,9 @@ export type TCompletionConfig = {
 }
 
 export type TModelAI = EOpenAIModel | EDeepSeekModel
+
+export type TSummaryPromptOptions = {
+  detailLevel: EDetailLevel
+  outputLanguage: string
+  expertiseLevel: EExpertiseLevel
+}

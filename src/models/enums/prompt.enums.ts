@@ -20,3 +20,14 @@ export enum ECompletionRole {
   ASSISTANT = 'assistant',
   DEVELOPER = 'developer',
 }
+
+export enum EDetailLevel {
+  SHORT = 'short',
+  DETAILED = 'detailed',
+}
+
+export enum EExpertiseLevel {
+  BEGINNER = 'beginner',
+  INTERMEDIATE = 'intermediate',
+  ADVANCED = 'advanced',
+}
