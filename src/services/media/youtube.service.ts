@@ -7,7 +7,6 @@ export class YoutubeService {
   private readonly outputDir: string = 'public/files'
 
   constructor() {
-    // Créer le dossier de sortie s'il n'existe pas
     if (!fs.existsSync(this.outputDir)) {
       fs.mkdirSync(this.outputDir, { recursive: true })
     }
