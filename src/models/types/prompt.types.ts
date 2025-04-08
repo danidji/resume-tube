@@ -30,3 +30,9 @@ export type TSummaryPromptOptions = {
   outputLanguage: string
   expertiseLevel: EExpertiseLevel
 }
+
+export type TSummarizeRequest = {
+  url: string
+  model: EOpenAIModel
+  options: TSummaryPromptOptions
+}
