@@ -32,7 +32,7 @@ async function transcribe(
     const transcriptionResult =
       from === EUseWhisper.API
         ? await whisperService.transcribeWithAPI(filePath)
-        : await whisperService.transcribe(filePath)
+        : await whisperService.transcribeLocal(filePath)
 
     const deleteResult = youtubeService.deleteAudio(downloadResult.filename)
 

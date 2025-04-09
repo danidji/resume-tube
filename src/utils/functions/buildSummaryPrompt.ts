@@ -1,5 +1,5 @@
-import { ECompletionRole, EProviderType } from '@/models/enums/prompt.enums'
-import { TPromptMessage, TSummaryPromptOptions } from '@/models/types/prompt.types'
+import { ECompletionRole, EProviderType } from '@/models/enums/ai-model.enums'
+import { TPromptMessage, TSummaryPromptOptions } from '@/models/types/ai-model.types'
 
 export function buildSummaryPrompt(
   textToSummarize: string,

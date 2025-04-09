@@ -1,4 +1,10 @@
-import { EOpenAIModel, EDeepSeekModel, EDetailLevel, EExpertiseLevel } from '../enums/prompt.enums'
+import {
+  EOpenAIModelLLM,
+  EDeepSeekModel,
+  EDetailLevel,
+  EExpertiseLevel,
+  EOpenAIModelTranscribe,
+} from '../enums/ai-model.enums'
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions'
 
 export type TPromptManager = {
@@ -11,11 +17,11 @@ export type TPromptConfig = {
   messages: TPromptMessage
   temperature?: number
   maxTokens?: number
-  model?: EOpenAIModel | EDeepSeekModel
+  model?: EOpenAIModelLLM | EDeepSeekModel
 }
 
 export type TCompletionConfig = {
-  model: EOpenAIModel | EDeepSeekModel
+  model: EOpenAIModelLLM | EDeepSeekModel
   temperature?: number
   maxTokens?: number
   messages: TPromptMessage
@@ -23,7 +29,7 @@ export type TCompletionConfig = {
   presencePenalty?: number
 }
 
-export type TModelAI = EOpenAIModel | EDeepSeekModel
+export type TModelAI = EOpenAIModelLLM | EDeepSeekModel
 
 export type TSummaryPromptOptions = {
   detailLevel: EDetailLevel
@@ -33,6 +39,7 @@ export type TSummaryPromptOptions = {
 
 export type TSummarizeRequest = {
   url: string
-  model: EOpenAIModel
+  transcribeModel: EOpenAIModelTranscribe
+  model: EOpenAIModelLLM
   options: TSummaryPromptOptions
 }

@@ -3,7 +3,7 @@ import { OpenAIPromptProvider } from './openai.provider'
 import { DeepSeekPromptProvider } from './deepseek.provider'
 import { OpenAIService } from '../openai.service'
 import { DeepSeekService } from '../deepseek.service'
-import { EOpenAIModel, EDeepSeekModel, EProviderType } from '@/models'
+import { EOpenAIModelLLM, EDeepSeekModel, EProviderType } from '@/models'
 
 export class ProviderFactory {
   private static openAIService = new OpenAIService()
@@ -11,11 +11,11 @@ export class ProviderFactory {
 
   static createProvider(
     type: EProviderType,
-    model?: EOpenAIModel | EDeepSeekModel
+    model?: EOpenAIModelLLM | EDeepSeekModel
   ): IPromptProvider {
     switch (type) {
       case EProviderType.OPEN_AI:
-        return new OpenAIPromptProvider(this.openAIService, model as EOpenAIModel)
+        return new OpenAIPromptProvider(this.openAIService, model as EOpenAIModelLLM)
       case EProviderType.DEEPSEEK:
         return new DeepSeekPromptProvider(this.deepseekService, model as EDeepSeekModel)
       default:

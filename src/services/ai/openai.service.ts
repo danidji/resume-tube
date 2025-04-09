@@ -1,6 +1,12 @@
 import OpenAI from 'openai'
 import { Config } from '@/utils/config'
-import { EOpenAIModel, TCompletionConfig, TPromptMessage } from '@/models'
+import {
+  EOpenAIModelLLM,
+  EOpenAIModelTranscribe,
+  TCompletionConfig,
+  TPromptMessage,
+} from '@/models'
+import fs from 'fs'
 
 export class OpenAIService {
   private readonly client: OpenAI
@@ -24,7 +30,7 @@ export class OpenAIService {
 
   async chatCompletion(
     prompt: TPromptMessage[],
-    model: EOpenAIModel = EOpenAIModel.GPT35,
+    model: EOpenAIModelLLM = EOpenAIModelLLM.GPT35,
     config?: Partial<TCompletionConfig>
   ): Promise<string> {
     const completion = await this.client.chat.completions.create({
@@ -37,6 +43,23 @@ export class OpenAIService {
     })
 
     return completion.choices[0]?.message?.content || ''
+  }
+
+  public async transcribe(
+    audioFilePath: string,
+    model: EOpenAIModelTranscribe = EOpenAIModelTranscribe.WHISPER_1
+  ): Promise<string> {
+    if (!fs.existsSync(audioFilePath)) {
+      throw new Error(`Le fichier audio ${audioFilePath} n'existe pas`)
+    }
+
+    const transcription = await this.client.audio.transcriptions.create({
+      file: fs.createReadStream(audioFilePath),
+      model,
+      response_format: 'text',
+    })
+
+    return transcription
   }
 }
 

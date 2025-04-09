@@ -1,17 +1,22 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { youtubeService } from '@/services/media/youtube.service'
-import { whisperService } from '@/services/ai/whisper.service'
-import { TSummarizeRequest, TModelAI, TSummaryPromptOptions } from '@/models'
+import {
+  TSummarizeRequest,
+  TModelAI,
+  TSummaryPromptOptions,
+  EOpenAIModelTranscribe,
+} from '@/models'
 import { PromptManagerService } from '@/services/ai/prompt-manager.service'
 import { buildSummaryPrompt } from '@/utils/functions/buildSummaryPrompt'
 import { audioService } from '@/services/media/audio.service'
 import { modelToProviderMap } from '@/utils/constants/models.constants'
+import { openAIService } from '@/services/ai/openai.service'
 
 async function summarize(
   request: FastifyRequest<{ Body: TSummarizeRequest }>,
   reply: FastifyReply
 ): Promise<void> {
-  const { url, model, options } = request.body
+  const { url, model, options, transcribeModel } = request.body
 
   if (!url) {
     reply.status(400).send({
@@ -37,7 +42,7 @@ async function summarize(
     const audioChunks = await audioService.splitAudio(filePath, 600)
 
     const transcriptions = await Promise.all(
-      audioChunks.map((chunk) => transcribeAndCleanChunk(chunk))
+      audioChunks.map((chunk) => transcribeAndCleanChunk(chunk, transcribeModel))
     )
 
     await audioService.cleanAudioChunks(audioChunks)
@@ -60,14 +65,17 @@ async function summarize(
   }
 }
 
-async function transcribeAndCleanChunk(chunk: string): Promise<string> {
-  const transcriptionResult = await whisperService.transcribeWithAPI(chunk)
+async function transcribeAndCleanChunk(
+  chunk: string,
+  transcribeModel: EOpenAIModelTranscribe
+): Promise<string> {
+  try {
+    const transcription = await openAIService.transcribe(chunk, transcribeModel)
 
-  if ('error' in transcriptionResult) {
-    throw new Error(`Erreur lors de la transcription: ${transcriptionResult.error}`)
+    return transcription
+  } catch (error) {
+    throw new Error(`Erreur lors de la transcription: ${error}`)
   }
-
-  return transcriptionResult.text
 }
 
 function cleanOriginalAudio(filename: string): void {

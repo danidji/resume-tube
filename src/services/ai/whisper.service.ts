@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import fs from 'fs'
 import path from 'path'
-import { TTranscriptionResult, TTranscriptionError } from '@/models'
+import { TTranscriptionResult, TTranscriptionError, EOpenAIModelTranscribe } from '@/models'
 import { OpenAIService, openAIService } from './openai.service'
 
 export class WhisperService {
@@ -9,7 +9,7 @@ export class WhisperService {
 
   constructor(private readonly openaiService: OpenAIService) {}
 
-  public async transcribe(
+  public async transcribeLocal(
     audioFilePath: string
   ): Promise<TTranscriptionResult | TTranscriptionError> {
     try {
@@ -106,7 +106,7 @@ export class WhisperService {
 
       const transcription = await this.openaiService.openai.audio.transcriptions.create({
         file: fs.createReadStream(audioFilePath),
-        model: 'whisper-1',
+        model: EOpenAIModelTranscribe.WHISPER_1,
         response_format: 'text',
       })
 

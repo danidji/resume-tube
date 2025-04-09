@@ -1,11 +1,11 @@
 import { IPromptProvider } from '@/models/interfaces/prompt.interfaces'
 import { OpenAIService } from '../openai.service'
-import { EOpenAIModel, TCompletionConfig, TPromptMessage } from '@/models'
+import { EOpenAIModelLLM, TCompletionConfig, TPromptMessage } from '@/models'
 
 export class OpenAIPromptProvider implements IPromptProvider {
   constructor(
     private readonly openAIService: OpenAIService,
-    private readonly model: EOpenAIModel = EOpenAIModel.GPT35,
+    private readonly model: EOpenAIModelLLM = EOpenAIModelLLM.GPT35,
     private readonly config?: Partial<TCompletionConfig>
   ) {}
 
