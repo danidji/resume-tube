@@ -1,10 +1,11 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { youtubeService } from '@/services/media/youtube.service'
 import { whisperService } from '@/services/ai/whisper.service'
-import { TSummarizeRequest, EPromptProviderType, TModelAI, TSummaryPromptOptions } from '@/models'
+import { TSummarizeRequest, TModelAI, TSummaryPromptOptions } from '@/models'
 import { PromptManagerService } from '@/services/ai/prompt-manager.service'
 import { buildSummaryPrompt } from '@/utils/functions/buildSummaryPrompt'
 import { audioService } from '@/services/media/audio.service'
+import { modelToProviderMap } from '@/utils/constants/models.constants'
 
 async function summarize(
   request: FastifyRequest<{ Body: TSummarizeRequest }>,
@@ -81,7 +82,7 @@ async function generateSummaryFromTranscript(
   model: TModelAI,
   options: TSummaryPromptOptions
 ): Promise<string> {
-  const prompt = buildSummaryPrompt(transcription, EPromptProviderType.OPEN_AI, options)
+  const prompt = buildSummaryPrompt(transcription, modelToProviderMap[model], options)
   return PromptManagerService.send(prompt, model)
 }
 

@@ -1,5 +1,6 @@
-import { TPromptMessage, EOpenAIModel, EDeepSeekModel, TModelAI } from '@/models'
-import { ProviderFactory, EProviderType } from './providers/provider.factory'
+import { TPromptMessage, TModelAI, EProviderType } from '@/models'
+import { ProviderFactory } from './providers/provider.factory'
+import { modelToProviderMap } from '@/utils/constants/models.constants'
 
 export class PromptManagerService {
   static async send(prompt: TPromptMessage[], model: TModelAI): Promise<string> {
@@ -8,18 +9,8 @@ export class PromptManagerService {
     return provider.send(prompt)
   }
 
-  private static modelToProviderMap: Record<TModelAI, EProviderType> = {
-    // OpenAI Models
-    [EOpenAIModel.GPT4o]: EProviderType.OPENAI,
-    [EOpenAIModel.GPT35]: EProviderType.OPENAI,
-    [EOpenAIModel.GPT4oMini]: EProviderType.OPENAI,
-    // DeepSeek Models
-    [EDeepSeekModel.CHAT]: EProviderType.DEEPSEEK,
-    [EDeepSeekModel.REASONER]: EProviderType.DEEPSEEK,
-  }
-
   private static getProviderForModel(model: TModelAI): EProviderType {
-    const providerType = this.modelToProviderMap[model]
+    const providerType = modelToProviderMap[model]
     if (!providerType) {
       throw new Error(`Aucun provider trouvé pour le modèle: ${model}`)
     }

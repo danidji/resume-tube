@@ -1,4 +1,4 @@
-export enum EPromptProviderType {
+export enum EProviderType {
   OPEN_AI = 'openai',
   DEEPSEEK = 'deepseek',
 }

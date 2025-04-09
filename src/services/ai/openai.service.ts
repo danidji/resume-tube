@@ -5,8 +5,8 @@ import { EOpenAIModel, TCompletionConfig, TPromptMessage } from '@/models'
 export class OpenAIService {
   private readonly client: OpenAI
   private readonly defaultConfig: Partial<TCompletionConfig> = {
-    temperature: 0.7,
-    maxTokens: 2000,
+    temperature: 0.5,
+    maxTokens: 8192,
     frequencyPenalty: 0,
     presencePenalty: 0,
   }
